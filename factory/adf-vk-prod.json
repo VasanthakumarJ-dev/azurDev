@@ -1,0 +1,9 @@
+{
+	"name": "adf-vk-prod",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "deb49018-bd0f-4ebc-b3b5-90fe47aefd8a",
+		"tenantId": "2800c0a0-70e9-49be-8733-faeaa6aced99"
+	}
+}
