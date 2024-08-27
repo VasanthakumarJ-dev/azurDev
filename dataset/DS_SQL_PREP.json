@@ -1,0 +1,16 @@
+{
+	"name": "DS_SQL_PREP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DB_output_table",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "PREP",
+			"table": "CUSTOMER"
+		}
+	}
+}

@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "CP_BLOB_CUSTOMER_TO_SQL",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -64,11 +64,11 @@
 				]
 			},
 			{
-				"name": "Copy data2",
+				"name": "CP_BLOB_ORDER_TO_SQl",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Copy data1",
+						"activity": "CP_BLOB_CUSTOMER_TO_SQL",
 						"dependencyConditions": [
 							"Succeeded"
 						]

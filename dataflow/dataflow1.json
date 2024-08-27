@@ -1,0 +1,85 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"folder": {
+			"name": "DF_CLEANING"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_CONSOLIDATED",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_PREP",
+						"type": "DatasetReference"
+					},
+					"name": "PREPCUSTOMER"
+				}
+			],
+			"transformations": [
+				{
+					"name": "sort1"
+				},
+				{
+					"name": "window1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustomerID as string,",
+				"          FirstName as string,",
+				"          LastName as string,",
+				"          Email as string,",
+				"          PhoneNumber as string,",
+				"          Address as string,",
+				"          City as string,",
+				"          State as string,",
+				"          ZipCode as string,",
+				"          Country as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source1 sort(asc(CustomerID, true)) ~> sort1",
+				"sort1 window(over(CustomerID),",
+				"     asc(CustomerID, true),",
+				"     DuplicateValue = iif((CustomerID==lag(CustomerID,1)), \"true\",\"false\")) ~> window1",
+				"window1 filter(DuplicateValue==\"false\") ~> filter1",
+				"filter1 derive(LastName = iif((LastName==\"NULL\"), replace(LastName,\"NULL\", \"UNKNOWN\"), iifNull(LastName, \"unkonwn\")),",
+				"          Email = iif((Email==\"NULL\"), replace(Email,\"NULL\", \"noemail@example.com\"), iifNull(Email, \"noemail@example.com\")),",
+				"          PhoneNumber = iif((PhoneNumber==\"NULL\"), replace(PhoneNumber,\"NULL\", \"0\"), iifNull(PhoneNumber, \"0\")),",
+				"          Address = iif((Address==\"NULL\"), replace(Address,\"NULL\", \"no address\"), iifNull(Address, \"no address\")),",
+				"          City = iif((City==\"NULL\"), replace(City,\"NULL\", \"unknown city\"), iifNull(City, \"unknown city\")),",
+				"          State = iif((State==\"NULL\"), replace(State,\"NULL\", \"unknown state\"), iifNull(State, \"unknown state\")),",
+				"          ZipCode = iif((ZipCode==\"NULL\"), replace(ZipCode,\"NULL\", \"no address\"), iifNull(Country, \"no address\")),",
+				"          Country = iif((Country==\"NULL\"), replace(Country,\"NULL\", \"unknown country\"), iifNull(Country, \"unknown country\"))) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> PREPCUSTOMER"
+			]
+		}
+	}
+}

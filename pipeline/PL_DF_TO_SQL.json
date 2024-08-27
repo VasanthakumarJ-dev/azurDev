@@ -1,0 +1,40 @@
+{
+	"name": "PL_DF_TO_SQL",
+	"properties": {
+		"activities": [
+			{
+				"name": "DF_TO_SQL",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"source1": {
+								"TABLE_NAME": "CONSOLIDATED_CUSTOMER"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Prep/01_DATAFLOW_TO_SQL_CUSTOMER"
+		},
+		"annotations": []
+	}
+}
