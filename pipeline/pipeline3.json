@@ -34,34 +34,8 @@
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_OUTPUT_customer",
-						"type": "DatasetReference",
-						"parameters": {
-							"folder_name": "customer"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DB_output_table",
-						"type": "DatasetReference",
-						"parameters": {
-							"folder_name": "customer"
-						}
-					}
-				]
+					"enableStaging": false
+				}
 			},
 			{
 				"name": "Copy data2",
@@ -102,34 +76,8 @@
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_OUTPUT_order",
-						"type": "DatasetReference",
-						"parameters": {
-							"folder_name": "order"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DB_output_table",
-						"type": "DatasetReference",
-						"parameters": {
-							"folder_name": "order"
-						}
-					}
-				]
+					"enableStaging": false
+				}
 			}
 		],
 		"annotations": [],

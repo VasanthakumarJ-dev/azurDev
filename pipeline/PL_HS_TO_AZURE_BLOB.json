@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "PL_HS_TO_AZURE_BLOB",
 	"properties": {
 		"activities": [
 			{
@@ -39,8 +39,31 @@
 							"fileExtension": ".csv"
 						}
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_BLOB_CSV",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_HUBSPOT_TO_CONSOLIDATE",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": "cr-consolidated-customer"
+						}
+					}
+				]
 			},
 			{
 				"name": "Copy data2",
@@ -83,12 +106,36 @@
 							"fileExtension": ".csv"
 						}
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_BLOB_EXCEL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_HUBSPOT_TO_CONSOLIDATE",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": "cr-consolidated-order"
+						}
+					}
+				]
 			}
 		],
-		"annotations": [],
-		"lastPublishTime": "2024-08-27T05:34:43Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"folder": {
+			"name": "LBGroup-DWH/01_SRC_TO_DESTINATION"
+		},
+		"annotations": []
+	}
 }

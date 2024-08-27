@@ -1,0 +1,32 @@
+{
+	"name": "DS_HUBSPOT_TO_CONSOLIDATE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ABLB_HUBSPOT",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folder_name": {
+				"type": "String",
+				"defaultValue": "cr-consolidated-customer"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@dataset().folder_name",
+					"type": "Expression"
+				},
+				"container": "cr-consolidated-folder"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

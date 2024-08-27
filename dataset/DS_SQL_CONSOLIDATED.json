@@ -1,0 +1,25 @@
+{
+	"name": "DS_SQL_CONSOLIDATED",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DB_output_table",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TABLE_NAME": {
+				"type": "String",
+				"defaultValue": "CONSOLIDATED_CUSTOMER"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "STAGGING",
+			"table": {
+				"value": "@dataset().TABLE_NAME",
+				"type": "Expression"
+			}
+		}
+	}
+}

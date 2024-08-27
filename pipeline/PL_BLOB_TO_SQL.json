@@ -1,5 +1,5 @@
 {
-	"name": "pipeline2",
+	"name": "PL_BLOB_TO_SQL",
 	"properties": {
 		"activities": [
 			{
@@ -34,8 +34,34 @@
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HUBSPOT_TO_CONSOLIDATE",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": "cr-consolidated-customer"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_CONSOLIDATED",
+						"type": "DatasetReference",
+						"parameters": {
+							"TABLE_NAME": "CONSOLIDATED_CUSTOMER"
+						}
+					}
+				]
 			},
 			{
 				"name": "Copy data2",
@@ -76,12 +102,39 @@
 						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HUBSPOT_TO_CONSOLIDATE",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": "cr-consolidated-order"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_SQL_CONSOLIDATED",
+						"type": "DatasetReference",
+						"parameters": {
+							"TABLE_NAME": "CONSOLIDATED_ORDER"
+						}
+					}
+				]
 			}
 		],
-		"annotations": [],
-		"lastPublishTime": "2024-08-27T05:34:43Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"folder": {
+			"name": "LBGroup-DWH/02_HUBSPOT_TO_AZURE_SQL"
+		},
+		"annotations": []
+	}
 }
